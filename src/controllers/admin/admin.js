@@ -6,8 +6,7 @@ const { generateRefreshToken } = require("../../config/refreshtoken");
 const { generateToken } = require("../../config/jwtToken");
 
 // Login admin
-exports.LoginAdmin  = AsyncHandler(async (req, res) => {
-    
+exports.LoginAdmin = AsyncHandler(async (req, res) => {
   const Username = req.body.username;
   const Password = req.body.password;
 
@@ -25,8 +24,8 @@ exports.LoginAdmin  = AsyncHandler(async (req, res) => {
         maxAge: 72 * 60 * 60 * 1000, //กำหนดระยะคุกกี้ที่จะหมดอายุใน 72 ชั่วโมง
       });
       return res.status(200).send({
-        statusCode:200,
-        message:"ยินดีต้อนรับเข้าสู่ระบบ",
+        statusCode: 200,
+        message: "ยินดีต้อนรับเข้าสู่ระบบ",
         result: {
           id: deCodeData.id,
           username: deCodeData.username,
@@ -50,7 +49,7 @@ exports.LoginAdmin  = AsyncHandler(async (req, res) => {
   }
 });
 
-exports.Createadmin  = AsyncHandler(async (req, res) => {
+exports.Createadmin = AsyncHandler(async (req, res) => {
   const Username = req.body.username;
   const Password = req.body.password;
   const Fullname = req.body.fullname;
@@ -73,13 +72,13 @@ exports.Createadmin  = AsyncHandler(async (req, res) => {
     if (Createadmin) {
       return res.status(200).send({
         message: "Create admin Successfully",
-        response:{
-          Username:Username,
-          Password:Password,
-          Full_name:Fullname,
-          Email:Email,
-          Phone:Phone
-        }
+        response: {
+          Username: Username,
+          Password: Password,
+          Full_name: Fullname,
+          Email: Email,
+          Phone: Phone,
+        },
       });
     } else {
       return res.status(400).send({
@@ -94,6 +93,45 @@ exports.Createadmin  = AsyncHandler(async (req, res) => {
   }
 });
 
-exports.UpdateProfile = AsyncHandler(async (req,res) => {
 
+exports.EditFullname = AsyncHandler(async (req,res) => {
+  const id  = req.params.id
+  const Password = req.body.password
+  if(Password.length <= 8){
+    const Update = await AdmModels.updatePassword({password:Bcryptpass.password_hash(Password)},id)
+    if(Update){
+      return res.status(200).send({
+        message:"Update Password succes"
+      })
+    }else{
+      return res.status(404).send({
+        message:"Update Password false"
+      })
+    }
+  }else{
+    return res.status(400).send({
+      message:"Update Password False"
+    })
+  }
+})
+
+exports.EditPassword = AsyncHandler(async (req,res) => {
+  const id  = req.params.id
+  const Password = req.body.password
+  if(Password.length <= 8){
+    const Update = await AdmModels.updatePassword({password:Bcryptpass.password_hash(Password)},id)
+    if(Update){
+      return res.status(200).send({
+        message:"Update Password succes"
+      })
+    }else{
+      return res.status(404).send({
+        message:"Update Password false"
+      })
+    }
+  }else{
+    return res.status(400).send({
+      message:"Update Password False"
+    })
+  }
 })

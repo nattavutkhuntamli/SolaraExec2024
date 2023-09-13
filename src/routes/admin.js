@@ -9,5 +9,10 @@ router.get('/', (req, res) => {
 })
 
 router.post('/login',AdminController.LoginAdmin)
-router.post('/create',authMiddleware,AdminController.Createadmin)
+router.post('/create',AdminController.Createadmin)
+router.put('/update-email/:id',AdminController.UpdateProfile)
+router.put('/update-name/:id',AdminController.UpdateProfile)
+router.put('/update-phone/:id',AdminController.UpdateProfile)
+router.put('/edit-password/:id',AdminController.EditPassword)
+// router.post('/create',authMiddleware,AdminController.Createadmin)
 module.exports = router
