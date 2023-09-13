@@ -96,21 +96,36 @@ exports.Createadmin = AsyncHandler(async (req, res) => {
 
 exports.EditFullname = AsyncHandler(async (req,res) => {
   const id  = req.params.id
-  const Password = req.body.password
-  if(Password.length <= 8){
-    const Update = await AdmModels.updatePassword({password:Bcryptpass.password_hash(Password)},id)
-    if(Update){
-      return res.status(200).send({
-        message:"Update Password succes"
-      })
+  const findById = await AdmModels.findById(id)
+  if(id !== null){
+    const fullname = req.body.fullname
+    if(fullname !="" || fullname !== undefined){
+      const findByFullname = await AdmModels.findByFullname(fullname)
+      if(findByFullname !== null){
+        const Update = await AdmModels.updateFullname(fullname,id)
+        if(Update){
+          return res.status(200).send({
+            message:"Update Password succes"
+          })
+        }else{
+          return res.status(404).send({
+            message:"Update Password false"
+          })
+        }
+      }else{
+        return res.status(404).send({
+          message:"Duplicate information"
+        })
+      }
+     
     }else{
-      return res.status(404).send({
-        message:"Update Password false"
+      return res.status(400).send({
+        message:"Update Password False"
       })
     }
   }else{
     return res.status(400).send({
-      message:"Update Password False"
+      message:"False"
     })
   }
 })
