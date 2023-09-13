@@ -105,11 +105,11 @@ exports.EditFullname = AsyncHandler(async (req,res) => {
         const Update = await AdmModels.updateFullname(fullname,id)
         if(Update){
           return res.status(200).send({
-            message:"Update Password succes"
+            message:"Update name succes"
           })
         }else{
           return res.status(404).send({
-            message:"Update Password false"
+            message:"Update name false"
           })
         }
       }else{
@@ -120,7 +120,7 @@ exports.EditFullname = AsyncHandler(async (req,res) => {
      
     }else{
       return res.status(400).send({
-        message:"Update Password False"
+        message:"Update name False"
       })
     }
   }else{
@@ -129,6 +129,42 @@ exports.EditFullname = AsyncHandler(async (req,res) => {
     })
   }
 })
+exports.EditEmail = AsyncHandler(async (req,res) => {
+  const id  = req.params.id
+  const findById = await AdmModels.findById(id)
+  if(id !== null){
+    const email = req.body.email
+    if(email !="" || email !== undefined){
+      const findByEmail = await AdmModels.findByEmail(email)
+      if(findByEmail !== null){
+        const Update = await AdmModels.updateEmail(email,id)
+        if(Update){
+          return res.status(200).send({
+            message:"Update email succes"
+          })
+        }else{
+          return res.status(404).send({
+            message:"Update email false"
+          })
+        }
+      }else{
+        return res.status(404).send({
+          message:"Duplicate information"
+        })
+      }
+     
+    }else{
+      return res.status(400).send({
+        message:"Update email False"
+      })
+    }
+  }else{
+    return res.status(400).send({
+      message:"False"
+    })
+  }
+})
+
 
 exports.EditPassword = AsyncHandler(async (req,res) => {
   const id  = req.params.id
